@@ -1,0 +1,17 @@
+@startuml
+User -> Kahoot: evaluarRespuestas(pregunta)
+Kahoot -> Puntaje: <<create>>
+Kahoot -> Pregunta: evaluarRespuestasPara(respuestaJugador1)
+Pregunta -> Pregunta: calcularPuntajePara\n(respuestaJugador1)
+Kahoot <<-- Pregunta: puntajeJ1
+Kahoot -> Puntaje: sumarPuntos(puntajeJ1)
+Kahoot -> Pregunta: evaluarRespuestasPara(respuestaJugador2)
+Pregunta -> Pregunta: calcularPuntajePara\n(respuestaJugador2)
+Kahoot <<-- Pregunta: puntajeJ2
+Kahoot -> Puntaje: sumarPuntos(puntajeJ2)
+Kahoot -> BonusDePuntaje: aplicarBonus(puntajeJ1, multiplicadoresJ1,\npuntajeJ2, multiplicadoresJ2, exclusividades)
+Kahoot -> Jugador1: sumarPuntos(puntajeJ1)
+Kahoot -> Jugador2: sumarPuntos(puntajeJ2)
+
+
+@enduml

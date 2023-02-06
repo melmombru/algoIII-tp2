@@ -1,0 +1,48 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+class Kahoot {
+    +agregarExclusividad(unaPreguntaSinPenalidad, unJugador)
+    +agregarMultiplicadorX2(unaPreguntaConPenalidad, unJugador)
+    +agregarMultiplicadorX3(unaPreguntaConPenalidad, unJugador)
+    +evaluarRespuestas(unaPregunta)
+    +getPuntajeJugador1()
+    +getPuntajeJugador2()
+}
+
+class Multiplicador {
+    -factorDeMultiplicacion
+    +aplicarMultiplicador (unPuntaje)
+}
+
+class Exclusividad {
+    +aplicarExclusividad (puntajeJ1, puntajeJ2)
+}
+
+class ListaDeExclusividades {
+    +aplicarExclusividades(puntaje1, puntaje2)
+    +limpiarExclusividadse()
+}
+
+class BonusDePuntaje {
+    +{static}aplicarBonus (puntajeJ1, multiplicadoresJ1, exclusividadesJ1, puntajeJ2, multiplicadoresJ2, exclusividadesJ2)
+}
+
+class ListaDeMultiplicadores {
+    +aplicarMultiplicadores (unPuntaje)
+}
+
+ListaDeMultiplicadores "2   "<-- Kahoot
+BonusDePuntaje <.. Kahoot
+ListaDeExclusividades "1"<-- Kahoot
+
+Multiplicador"0..2 " <--  ListaDeMultiplicadores
+Exclusividad "0..4 " <-- ListaDeExclusividades
+
+BonusDePuntaje .> ListaDeExclusividades
+ListaDeMultiplicadores <. BonusDePuntaje
+
+@enduml

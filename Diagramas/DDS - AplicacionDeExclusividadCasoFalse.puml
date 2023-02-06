@@ -1,0 +1,11 @@
+@startuml
+
+BonusDePuntaje -> "listaExclusividades:ListaDeExclusividades": aplicarExclusividad(puntajeJ1, puntajeJ2)
+loop cantidadExclusividad
+ "listaExclusividades:ListaDeExclusividades" -> Exclusividad: aplicarExclusividad(puntajeJ1, puntajeJ2)
+ Exclusividad ->Exclusividad : algunPuntajeEsCero(puntajeJ1, puntajeJ2) \n false
+ Exclusividad ->  "puntajeJ1:Puntaje": establecerPuntos(0)
+ Exclusividad ->  "puntajeJ2:Puntaje": establecerPuntos(0)
+end
+
+@enduml

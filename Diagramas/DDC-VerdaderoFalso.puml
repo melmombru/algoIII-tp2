@@ -1,0 +1,49 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+abstract class VerdaderoFalso {
+    #Opcion: opcionCorrecta
+    #Opcion: opcionIncorrecta
+    +evaluarRespuestaPara(unaRespuesta)
+    +getOpcionVerdadera():unaOpcion
+    +gerOpcionFalsa():unaOpcion
+}
+
+class VerdaderoFalsoClasico {
+    +{static}crearVerdaderoFalsoCorrectaVerdadero(unaConsigna):unVerdaderoFalsoConClasico
+    +{static}crearVerdaderoFalsoCorrectaVerdadero(unaConsigna):unVerdaderoFalsoConClasico
+    +{static}recuperar(unJSonObject): unVerdaderoFalsoConClasico
+    +guardar():unJsonObject
+    +getTipoDePregunta():String
+}
+
+class VerdaderoFalsoConPenalidad {
+    +{static}crearVerdaderoFalsoCorrectoFalso(unaConsigna):unVerdaderoFalsoConPenalidad
+    +{static}crearVerdaderoFalsoCorrectoVerdadero(unaConsigna):unVerdaderoFalsoConPenalidad
+    +{static}recuperar(unJSonObject): unVerdaderoFalsoConClasico
+    +guardar():unJsonObject
+    +getTipoDePregunta():String
+}
+
+interface PreguntaSinPenalidad {
+    +getExclusividad():unaExclusividad
+}
+
+interface PreguntaConPenalidad {
+    getMultiplicadorX2():unMultiplicadorX2
+    getMultiplicadorX3():unMultiplicadorX3
+}
+
+Pregunta <|-- VerdaderoFalso
+
+VerdaderoFalso <|-- VerdaderoFalsoClasico
+VerdaderoFalso <|-- VerdaderoFalsoConPenalidad
+
+PreguntaSinPenalidad <|.. VerdaderoFalsoClasico
+PreguntaConPenalidad <|.. VerdaderoFalsoConPenalidad
+
+
+@enduml

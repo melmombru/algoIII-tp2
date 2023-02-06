@@ -1,0 +1,8 @@
+@startuml
+
+BonusDePuntaje -> "listaMultiplicadoresJ1:ListaDeMultiplicadores": aplicarMultiplicadores(puntajeJ1)
+loop cantidadMultiplicadores
+ "listaMultiplicadoresJ1:ListaDeMultiplicadores" -> Multiplicador: aplicarMultiplicador(puntajeJ1)
+ Multiplicador -> "puntajeJ1:Puntaje" : multiplicadorPuntos\n(factorDeMultiplicacion)
+end
+@enduml

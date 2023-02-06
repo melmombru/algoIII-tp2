@@ -1,0 +1,69 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+class Jugador {
+    -String nombre
+    -int MultiplicadoresX2Restantes
+    -int MultiplicadoresX3Restantes
+    -int ExclusividadesRestantes
+    +sumarPuntos(unPuntaje)
+    +utilizarExclusividad()
+    +utilizarMultiplicadorX2()
+    +utilizarMultiplicadorX3()
+}
+
+class Kahoot {
+    +agregarExclusividad(unaPreguntaSinPenalidad, unJugador)
+    +agregarMultiplicadorX2(unaPreguntaConPenalidad, unJugador)
+    +agregarMultiplicadorX3(unaPreguntaConPenalidad, unJugador)
+    +evaluarRespuestas(unaPregunta)
+    +getPuntajeJugador1()
+    +getPuntajeJugador2()
+}
+
+abstract class Pregunta {
+    -consigna
+    {abstract}+evaluarRespuestaPara(unasRespuestas, unJugador):unPuntaje
+    +getTipoDePregunta():String
+    +guardar():JsonObject
+}
+
+class BonusDePuntaje {
+    +{static}aplicarBonus (puntajeJ1, multiplicadoresJ1, exclusividadJ1, puntajeJ2, multiplicadoresJ2, exclusividadJ2)
+}
+
+class ListaDeExclusividades {
+    -exclusividades
+    +aplicarExclusividades(puntaje1, puntaje2)
+}
+
+class ListaDeMultiplicadores {
+    -multiplicadores
+    +aplicarMultiplicadores (unPuntaje)
+}
+
+interface Respuesta {
+}
+
+class Puntaje {
+    -puntos
+    +sumarPuntos (unPuntaje)
+    +multiplicarPuntos (unPuntaje)
+}
+
+Jugador " 2" <- Kahoot
+Kahoot .> Pregunta
+Respuesta "2      " <-- Kahoot
+
+Jugador --> Puntaje
+
+Kahoot ..> Puntaje
+Kahoot ..> BonusDePuntaje
+
+ListaDeExclusividades "2  "<-- Kahoot
+ListaDeMultiplicadores "2   "<-- Kahoot
+
+@enduml

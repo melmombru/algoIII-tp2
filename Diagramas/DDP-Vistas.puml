@@ -1,0 +1,32 @@
+@startuml
+
+package "vista" {
+
+    package "Contenedores"{
+    }
+
+    package "Escenas"{
+    }
+
+    package "Layouts"{
+    }
+
+    Class BarraDeMenu{
+    }
+
+    Class EtiquetaTiempo{
+    }
+}
+
+Escenas ..> Layouts
+Escenas ..> BarraDeMenu
+
+Layouts ..> Contenedores
+Layouts .> BarraDeMenu
+
+Layouts ..> EtiquetaTiempo
+
+BarraDeMenu ..> Contenedores
+
+
+@enduml

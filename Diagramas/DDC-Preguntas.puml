@@ -1,0 +1,59 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+abstract class Pregunta {
+    -consigna
+    {abstract}+evaluarRespuestaPara(unaRespuesta):unPuntaje
+    {abstract}+getTipoPregunta():String
+    {abstract}+guardar():JsonObject
+}
+
+abstract class VerdaderoFalso {
+    #Opcion:opcionCorrecta
+    #Opcion:opcionIncorrecta
+    +evaluarRespuestaPara(unaRespuesta)
+    +getOpcionVerdadera():unaOpcion
+    +gerOpcionFalsa():unaOpcion
+}
+
+abstract class MultipleChoice {
+    #OpcionesCorrectas
+    #OpcionesIncorrectas
+}
+
+class OrderedChoice {
+    +calcularPuntajePara(unasOpciones): unPuntaje
+    +evaluarRespuesta(unaRespuesta): unPuntaje
+    +getOpcionesDesordenadas(): unaListaOpciones
+    {static} +recuperar(JSonObject): unOrderedChoice
+    +getTipoPregunta(): unString
+}
+
+class GroupChoice {
+    -nombreGrupoA
+    -nombreGrupoB
+    +evaluarRespuestaPara(unaRespuesta): unPuntaje
+    {static} +recuperar(JSonObject): unOrderedChoice
+    +getTipoPregunta(): unString
+}
+
+interface PreguntaSinPenalidad {
+    +getExclusividad():unaExclusividad
+}
+
+Pregunta <|--- VerdaderoFalso
+Pregunta <|--- MultipleChoice
+Pregunta <|--- OrderedChoice
+Pregunta <|--- GroupChoice
+
+MultipleChoice --> "2      " ListaOpciones
+OrderedChoice --> "1 " ListaOpciones
+GroupChoice --> "    2" ListaOpciones
+
+ OrderedChoice ..|> PreguntaSinPenalidad
+ GroupChoice ..|> PreguntaSinPenalidad
+
+@enduml

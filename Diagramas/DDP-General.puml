@@ -1,0 +1,14 @@
+@startuml
+
+package "modelo" {
+}
+
+package "vista" {
+}
+
+package "controlador" {
+}
+
+vista ..> modelo
+vista ..>controlador
+@enduml

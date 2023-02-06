@@ -1,0 +1,13 @@
+@startuml
+
+Main -> Kahoot: <<create>>
+Main -> ManejadorDeArchivos: <<create>>
+Main -> ManejadorDeArchivos: leerPreguntas()
+Main -> ManejadorDeArchivos: getPreguntas()
+ManejadorDeArchivos --> Main: preguntas
+Main -> "preguntasPila:Pila": addAll(preguntas)
+Main -> ManejadorDeTurnos: new ManejadorDeTurnos(preguntasPila, jugador1, jugador2, kahoot, stage)
+Main -> stage: setScene(scene)
+
+
+@enduml

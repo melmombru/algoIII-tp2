@@ -1,0 +1,9 @@
+@startuml
+actor User
+User -> MultipleChoiceParcial: evaluarRespuestaPara\n(repuesta)
+MultipleChoiceParcial -> "repuesta:RespuestaEnLista": contieneAlguna(opcionesIncorrectas)
+MultipleChoiceParcial <<-- "repuesta:RespuestaEnLista": false
+MultipleChoiceParcial -> "repuesta:RespuestaEnLista" : calcularPuntaje()
+"repuesta:RespuestaEnLista" -> "opcionesSeleccionadas:ListaOpciones": calcularPuntaje()
+"opcionesSeleccionadas:ListaOpciones" -->> User: puntaje
+@enduml

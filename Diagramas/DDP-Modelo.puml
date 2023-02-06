@@ -1,0 +1,68 @@
+@startuml
+
+package "modelo" {
+
+    package "Excepciones"{
+    }
+
+    package "Preguntas"{
+    }
+
+    package "opciones"{
+    }
+
+    package "Respuestas"{
+    }
+
+    package "bonus"{
+    }
+
+    Class CreadorDeVistas
+    Class Jugador
+    Class Kahoot
+    Class ManejadorDeArchivos
+    Class ManejadorDeTurnos
+}
+
+Preguntas ..> opciones
+Preguntas ..> Respuestas
+Preguntas ..> bonus
+
+Preguntas <..> Excepciones
+opciones <. Respuestas
+
+Excepciones <.. CreadorDeVistas
+Jugador ..> Excepciones
+
+bonus <.. Kahoot
+Respuestas <.. Kahoot
+Preguntas <.. Kahoot
+Excepciones <.. Kahoot
+
+ManejadorDeTurnos ...> Excepciones
+ManejadorDeTurnos ...> Preguntas
+
+ManejadorDeArchivos ..>Excepciones
+ManejadorDeArchivos ..> Preguntas
+
+@enduml
+
+/*
+Preguntas ..> bonus
+Preguntas <..> Excepciones
+opciones <.. Preguntas
+Preguntas ..> Respuestas
+opciones <.. Respuestas
+CreadorDeVistas ..> Excepciones
+Jugador ..> Excepciones
+
+bonus <.. Kahoot
+Respuestas <.. Kahoot
+Preguntas <.. Kahoot
+Excepciones <.. Kahoot
+
+ManejadorDeTurnos ..> Excepciones
+ManejadorDeTurnos .> Preguntas
+ManejadorDeArchivos .> Preguntas
+ManejadorDeArchivos ..>Excepciones
+*/

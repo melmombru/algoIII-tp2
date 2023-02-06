@@ -1,0 +1,58 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+abstract class Pregunta {
+    -consigna
+    {abstract}+evaluarRespuestaPara(unaRespuesta):unPuntaje
+    {abstract}+getTipoPregunta():String
+    {abstract}+guardar():JsonObject
+}
+
+class MultipleChoiceClasico {
+    +evaluarRespuestaPara(unaRespuesta): unPuntaje
+    +calcularPuntajePara()
+    {static} +recuperar(JsonObject): unMultipleChoiceClasico
+}
+
+class MultipleChoiceParcial {
+    +evaluarRespuestaPara(unaRespuesta): unPuntaje
+    +calcularPuntajePara()
+    {static} +recuperar(JsonObject): unMultipleChoiceParcial
+}
+
+class MultipleChoiceConPenalidad {
+    +evaluarRespuestaPara(unaRespuesta): unPuntaje
+    +calcularPuntajePara()
+    {static} +recuperar(JsonObject): unMultipleChoiceConPenalidad
+}
+
+abstract class MultipleChoice {
+    #OpcionesCorrectas
+    #OpcionesIncorrectas
+}
+
+interface PreguntaSinPenalidad {
+    +getExclusividad():unaExclusividad
+}
+
+interface PreguntaConPenalidad {
+    getMultiplicadorX2():unMultiplicadorX2
+    getMultiplicadorX3():unMultiplicadorX3
+}
+
+Pregunta<|- MultipleChoice
+
+MultipleChoice <|--- MultipleChoiceClasico
+MultipleChoice <|--- MultipleChoiceParcial
+MultipleChoice <|--- MultipleChoiceConPenalidad
+
+MultipleChoice -> "2    " ListaOpciones
+
+MultipleChoiceClasico ..|> PreguntaSinPenalidad
+MultipleChoiceParcial ..|> PreguntaSinPenalidad
+MultipleChoiceConPenalidad ..|> PreguntaConPenalidad
+
+@enduml
